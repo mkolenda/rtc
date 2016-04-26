@@ -4,13 +4,6 @@ class Proposal < ActiveRecord::Base
   belongs_to :author
   has_one :current_draft, class_name: 'Draft'
 
-  # t.string :title, null: false
-  # t.text :body, null: false
-  # t.boolean :reviewed, null: false
-  # t.integer :author_id, null: false
-  # t.integer :current_draft_id
-  # t.integer :current_draft
-
   def create_draft!(attributes, author)
     if self.drafts.empty?
       return create_first_draft!(attributes, author)
