@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160426171257) do
+ActiveRecord::Schema.define(version: 20160503044130) do
 
   create_table "authors", force: :cascade do |t|
     t.string "name", null: false
@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 20160426171257) do
     t.integer  "proposal_id", null: false
     t.integer  "author_id",   null: false
     t.integer  "version",     null: false
-    t.datetime "written_at",  null: false
     t.string   "state",       null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false

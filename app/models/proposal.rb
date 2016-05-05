@@ -17,7 +17,6 @@ class Proposal < ActiveRecord::Base
 
     draft = self.drafts.build(attributes)
     draft.proposal_id = self.id
-    draft.written_at = Time.now
     draft.author_id = author
     draft.version = self.current_draft.version + 1
     self.save!
@@ -29,7 +28,6 @@ class Proposal < ActiveRecord::Base
 
   def create_first_draft!(attributes, author)
     draft = self.drafts.build(attributes)
-    draft.written_at = Time.now
     draft.author_id = author
     draft.state ||= 'New'
     draft.version = 1
