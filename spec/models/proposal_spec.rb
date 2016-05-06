@@ -58,7 +58,7 @@ describe Proposal do
 
       it "Sets the previous current_drafts external_links' current attribute to false when creating a new draft" do
         first_draft  = proposal.create_draft!(nil, author.id)
-        external_link = first_draft.external_links.create(title: "Test Title", current: true)
+        external_link = first_draft.external_links.create(title: "Test Title")
 
         second_draft = proposal.create_draft!(draft_attributes, author.id)
 

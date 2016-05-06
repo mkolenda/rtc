@@ -9,12 +9,6 @@ class Proposal < ActiveRecord::Base
       return create_first_draft!(attributes, author_id)
     end
 
-    if self.current_draft.external_links.any?
-      self.current_draft.external_links.each do |link|
-        link.update_attribute(:current, false)
-      end
-    end
-
     draft = self.drafts.build(attributes)
     draft.author_id = author_id
     draft.version = self.current_draft.version + 1

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160506000452) do
+ActiveRecord::Schema.define(version: 20160506005429) do
 
   create_table "authors", force: :cascade do |t|
     t.string "name", null: false
@@ -29,7 +29,6 @@ ActiveRecord::Schema.define(version: 20160506000452) do
   create_table "external_links", force: :cascade do |t|
     t.integer  "draft_id",   null: false
     t.string   "title",      null: false
-    t.boolean  "current",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

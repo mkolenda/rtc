@@ -4,4 +4,8 @@ class Draft < ActiveRecord::Base
   has_many :external_links
 
   alias_attribute :written_at, :created_at
+
+  def current?
+    proposal.current_draft == self
+  end
 end
