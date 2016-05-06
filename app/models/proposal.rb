@@ -11,7 +11,6 @@ class Proposal < ActiveRecord::Base
 
     draft = self.drafts.build(attributes)
     draft.author_id = author_id
-    draft.version = self.current_draft.version + 1
     self.save!
     self.update_attribute(:current_draft_id, draft.id)
     draft
@@ -23,7 +22,6 @@ class Proposal < ActiveRecord::Base
     draft = self.drafts.build(attributes)
     draft.author_id = author_id
     draft.state ||= 'New'
-    draft.version = 1
     self.save!
     self.update_attribute(:current_draft_id, draft.id)
     draft
