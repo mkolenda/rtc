@@ -9,8 +9,7 @@ class Proposal < ActiveRecord::Base
       return create_first_draft!(attributes, author_id)
     end
 
-    draft = self.drafts.build(attributes)
-    draft.author_id = author_id
+    draft = build_draft(attributes, author_id)
     self.save!
     self.update_attribute(:current_draft_id, draft.id)
     draft
@@ -19,11 +18,16 @@ class Proposal < ActiveRecord::Base
   private
 
   def create_first_draft!(attributes, author_id)
-    draft = self.drafts.build(attributes)
-    draft.author_id = author_id
+    draft = build_draft(attributes, author_id)
     draft.state ||= 'New'
     self.save!
     self.update_attribute(:current_draft_id, draft.id)
+    draft
+  end
+
+  def build_draft(attributes, author_id)
+    draft = self.drafts.build(attributes)
+    draft.author_id = author_id
     draft
   end
 end

@@ -28,7 +28,7 @@ class ProposalsController < ApplicationController
   end
 
   def draft_params
-    params.require(:draft).permit(:version, :state)
+    params.require(:draft).permit(:state)
   end
 
 end
