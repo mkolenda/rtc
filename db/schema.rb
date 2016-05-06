@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160503044130) do
+ActiveRecord::Schema.define(version: 20160506000452) do
 
   create_table "authors", force: :cascade do |t|
     t.string "name", null: false
@@ -40,7 +40,6 @@ ActiveRecord::Schema.define(version: 20160503044130) do
     t.boolean  "reviewed",         null: false
     t.integer  "author_id",        null: false
     t.integer  "current_draft_id"
-    t.integer  "current_draft"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end
