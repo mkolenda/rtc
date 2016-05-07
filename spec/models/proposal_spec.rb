@@ -2,17 +2,8 @@ require 'rails_helper'
 
 describe Proposal do
   describe "#create_draft!" do
-    let(:author) { Author.create(name: "Test Author") }
-    let(:title) { "Test Title" }
-    let(:body) { "Test Body" }
-    let(:reviewed) { true }
-
-    let(:proposal_attributes) {{ title: title,
-                                 body: body,
-                                 reviewed: reviewed,
-                                 author: author }}
-
-    let(:proposal){ Proposal.create(proposal_attributes)}
+    let(:proposal){ FactoryGirl.create(:proposal) }
+    let(:author) {proposal.author}
 
     let(:state) { "Test State" }
     let(:draft_attributes) {{ state: state }}

@@ -2,17 +2,8 @@ require 'rails_helper'
 
 describe Draft do
   describe "#set_version" do
-    let(:author) { Author.create(name: "Test Author") }
-    let(:title) { "Test Title" }
-    let(:body) { "Test Body" }
-    let(:reviewed) { true }
-
-    let(:proposal_attributes) {{ title: title,
-                                 body: body,
-                                 reviewed: reviewed,
-                                 author: author }}
-
-    let(:proposal){ Proposal.create(proposal_attributes)}
+    let(:proposal){ FactoryGirl.create(:proposal) }
+    let(:author){ proposal.author }
 
     it "sets the version equal to the amount of drafts in the proposal" do
       first_draft = proposal.drafts.create(state: "First", author: author)
