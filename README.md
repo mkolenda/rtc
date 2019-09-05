@@ -9,6 +9,7 @@ Your mission should you choose to accept it:
 * Assume that the currently logged in user can be retrieved from 
 * Ensure the changes you made work by providing rspec tests for the new code
 * When complete send us a PR
+* write some specs
 * Feel free to email ([mkolenda@priviahealth.com](mailto:mkolenda@priviahealth.com)) if you have any questions.
 
 Thanks
