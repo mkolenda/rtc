@@ -3,6 +3,11 @@ class Proposal < ActiveRecord::Base
   has_many :drafts
   belongs_to :author
   has_one :current_draft, class_name: 'Draft'
+  accepts_nested_attributes_for :drafts
+
+  validates :title, presence: true
+  validates :body, presence: true
+  validates :author, presence: true
 
   def create_draft!(attributes, author)
     if self.drafts.empty?
