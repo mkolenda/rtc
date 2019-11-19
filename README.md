@@ -6,9 +6,9 @@ Your mission should you choose to accept it:
 * Feel free to modify or delete ANY FILE in this repo for your submission
 * Feel free to change the params sent to the controller
 * You are able to change the data model through migrations if you believe it necessary
-* Assume that the currently logged in user can be retrieved from 
+* Assume that the currently logged in user can be retrieved from the ApplicationController
 * Ensure the changes you made work by providing rspec tests for the new code
-* When complete send us a PR
+* When complete send us a pull request
 * write some specs
 * Feel free to email ([mkolenda@priviahealth.com](mailto:mkolenda@priviahealth.com)) if you have any questions.
 
