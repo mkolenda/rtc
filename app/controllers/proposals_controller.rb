@@ -1,20 +1,13 @@
 class ProposalsController < ApplicationController
   def create
-    params.require(:proposal).permit!
-    params.require(:draft).permit!
-    @author_id = params[:proposal][:author_id]
-    @proposal = Proposal.create(params[:proposal])
-    @proposal.author_id = @author_id
+    @proposal = logged_in_author.proposals.build(proposal_params)
+    @proposal.drafts.build if @proposal.drafts.empty?
 
-    begin
-      Proposal.transaction do
-        @draft = @proposal.create_draft!(params[:draft], @author_id)
-      end
-    rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
+    if @proposal.save
+      redirect_to proposal_path(@proposal)
+    else
       render :index and return false
     end
-
-    redirect_to proposal_path(@proposal)
   end
 
   def index
@@ -23,6 +16,12 @@ class ProposalsController < ApplicationController
 
   def show
     @proposal = Proposal.find(params[:id])
+  end
+
+  private
+
+  def proposal_params
+    params.require(:proposal).permit(:title, :body, drafts_attributes: [:state])
   end
 
 end
