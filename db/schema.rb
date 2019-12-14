@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160426171257) do
+ActiveRecord::Schema.define(version: 20191214011549) do
 
   create_table "authors", force: :cascade do |t|
     t.string "name", null: false
@@ -36,14 +36,12 @@ ActiveRecord::Schema.define(version: 20160426171257) do
   end
 
   create_table "proposals", force: :cascade do |t|
-    t.string   "title",            null: false
-    t.text     "body",             null: false
-    t.boolean  "reviewed",         null: false
-    t.integer  "author_id",        null: false
-    t.integer  "current_draft_id"
-    t.integer  "current_draft"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.string   "title",      null: false
+    t.text     "body",       null: false
+    t.boolean  "reviewed",   null: false
+    t.integer  "author_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
