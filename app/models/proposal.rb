@@ -2,7 +2,10 @@ class Proposal < ActiveRecord::Base
 
   has_many :drafts
   belongs_to :author
-  has_one :current_draft, class_name: 'Draft'
+  has_one :current_draft, ->{order(version: :desc)}, class_name: Draft.name
+
+  validates_presence_of :title, :body, :author_id
+  validates :reviewed, inclusion: [true, false]
 
   def create_draft!(attributes, author)
     if self.drafts.empty?
