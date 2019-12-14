@@ -54,4 +54,13 @@ RSpec.describe Draft, type: :model do
     assoc = described_class.reflect_on_association(:external_links)
     expect(assoc.macro).to eq :has_many
   end
+
+  it 'expires external links' do
+    draft = Draft.create(proposal_id: 1, author_id: 1, version: 1, written_at: DateTime.now, state: 'new')
+    2.times{ExternalLink.create(current: true, draft: draft, title: 'EL')}
+    expect(draft.external_links.pluck(:current)).to eq [true, true]
+
+    draft.expire_external_links
+    expect(draft.external_links.pluck(:current)).to eq [false, false]
+  end
 end

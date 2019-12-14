@@ -48,4 +48,12 @@ RSpec.describe Proposal, type: :model do
     assoc = described_class.reflect_on_association(:current_draft)
     expect(assoc.macro).to eq :has_one
   end
+
+  it "builds a draft" do
+    attributes = {state: 'new'}
+    author = Author.create(name: 'tester')
+    proposal = Proposal.create(title: 'proposal', body: 'body', reviewed: true, author: author)
+    proposal.build_draft(attributes, author)
+    expect{proposal.save!}.to change{Draft.count}.by(1)
+  end
 end

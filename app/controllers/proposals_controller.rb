@@ -1,12 +1,16 @@
 class ProposalsController < ApplicationController
   def create
-    @author_id = params[:proposal][:author_id]
     @proposal = Proposal.create(params[:proposal])
-    @proposal.author_id = @author_id
+    @proposal.author = logged_in_author
 
+    # I'm making an assumption that the rest of this method is kosher in structure
+    # so I can focus on the model logic
     begin
       Proposal.transaction do
-        @draft = @proposal.create_draft!(params[:draft], @author_id)
+        # current draft external links are also no longer current
+        @proposal.expire_current_draft_external_links
+        @proposal.build_draft(params[:draft], logged_in_author)
+        @proposal.save!
       end
     rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
       render :index and return false

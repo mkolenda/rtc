@@ -1,43 +1,20 @@
 class Proposal < ActiveRecord::Base
-
-  has_many :drafts
+  has_many :drafts, inverse_of: :proposal
   belongs_to :author
   has_one :current_draft, ->{order(version: :desc)}, class_name: Draft.name
 
   validates_presence_of :title, :body, :author_id
   validates :reviewed, inclusion: [true, false]
 
-  def create_draft!(attributes, author)
-    if self.drafts.empty?
-      return create_first_draft!(attributes, author)
-    end
-
-    if self.current_draft.external_links.any?
-      self.current_draft.external_links.each do |link|
-        link.update_attribute(:current, false)
-      end
-    end
-
+  def build_draft(attributes, author)
     draft = self.drafts.build(attributes)
     draft.proposal_id = self.id
     draft.written_at = Time.now
-    draft.author_id = author
-    draft.version = self.current_draft.version + 1
-    self.save!
-    self.update_attribute(:current_draft_id, draft.id)
-    draft
+    draft.author = author
+    draft.version = current_draft&.version&.next || 1
   end
 
-  private
-
-  def create_first_draft!(attributes, author)
-    draft = self.drafts.build(attributes)
-    draft.written_at = Time.now
-    draft.author_id = author
-    draft.state ||= 'New'
-    draft.version = 1
-    self.save!
-    self.update_attribute(:current_draft_id, draft.id)
-    draft
+  def expire_current_draft_external_links
+    current_draft.expire_external_links
   end
 end
